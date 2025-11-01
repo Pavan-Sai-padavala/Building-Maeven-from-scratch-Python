@@ -53,3 +53,25 @@ print("\nCompiling Java files...")
 javaFiles=compileJavaProject()
 while(len(javaFiles) !=0):
     javaFiles=compileJavaProject()
+
+# Building Packaged JAR Application from the compiled .class files
+
+manifest_file="E:/pavan sai/users/Desktop/src/manifest.mf"
+jar_path="E:/pavan sai/users/Desktop/src/App.jar"
+class_files_path="E:/pavan sai/users/Desktop/src/target/."
+
+print("Packaging Java Application")
+subprocess.run(
+    ["jar","cfm",jar_path,manifest_file,class_files_path],
+    capture_output=True,
+    text=True,
+    check=True
+)
+print("Jar File has created and is running")
+
+subprocess.run(
+                ["java","-jar",jar_path],
+                capture_output=True,
+                text=True,
+                check=True
+               )
