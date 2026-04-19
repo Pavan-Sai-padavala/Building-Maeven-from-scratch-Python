@@ -9,6 +9,10 @@ class BuildParams:
     prj_artifact_Id = ""
     prj_version = ""
     dependencies = []
+
+    targetDir = ""
+    classesDir = ""
+    dependencyDir = ""
     
     @classmethod
     def get_instance(cls):

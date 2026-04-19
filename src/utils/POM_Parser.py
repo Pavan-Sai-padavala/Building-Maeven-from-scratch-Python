@@ -13,6 +13,13 @@ class POM_Parser:
         self.BuildParams_obj.prj_dir = prj_dir
         self.BuildParams_obj.pom_file_path = os.path.join(prj_dir,"pom.xml")
 
+        target_dir = os.path.join(prj_dir, "target")
+        dependency_dir = os.path.join(target_dir, "dependencies")
+        os.makedirs(target_dir, exist_ok=True)
+        os.makedirs(dependency_dir, exist_ok=True)
+        self.BuildParams_obj.targetDir = target_dir
+        self.BuildParams_obj.dependencyDir = dependency_dir
+
         tree=ET.parse(self.BuildParams_obj.pom_file_path)
         self.root=tree.getroot()
 
@@ -23,7 +30,7 @@ class POM_Parser:
             self.BuildParams_obj.dependencies.append({
                          "groupId" : dep.find("pom:groupId",namespace).text ,
                          "artifactId" : dep.find("pom:artifactId",namespace).text,
-                         "version" : dep.find("pom:version",namespace).text
+                          "version" : elem.text if (elem := dep.find("pom:version",namespace)) is not None else None
                         })
 
     def get_project_data(self):
