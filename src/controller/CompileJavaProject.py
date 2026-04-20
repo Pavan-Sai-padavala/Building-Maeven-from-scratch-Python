@@ -1,11 +1,11 @@
 import os
 import subprocess
 
+from Model.BuildParams import BuildParams
 
 class CompileJavaProject:
-    def __init__(self,project_dir,target_dir=None):
-        self.project_dir = project_dir
-        self.target_dir = os.path.join(self.project_dir,"target") if target_dir is None else target_dir
+    def __init__(self):
+        self.BuildParams_obj = BuildParams.get_instance()
         self.java_files = []
 
     # Recursive function to iterate java files in a project directory
@@ -20,7 +20,7 @@ class CompileJavaProject:
     # Given a list of java files (absolute paths), compiles using javac
     def compileProject(self):
 
-        self.path_gen(self.project_dir)
+        self.path_gen(self.BuildParams_obj.prj_dir)
 
         compilation_failed = []
         compilation_message = {}
@@ -30,7 +30,7 @@ class CompileJavaProject:
             for file in self.java_files:
                 print("compiling java file:", file)
                 result = subprocess.run(
-                    ["javac", "-cp", self.target_dir, "-d", self.target_dir, file],
+                    ["javac", "-cp", self.BuildParams_obj.classesDir, "-d", self.BuildParams_obj.dependencyDir, file],
                     capture_output=True,
                     text=True,
                     check=False,

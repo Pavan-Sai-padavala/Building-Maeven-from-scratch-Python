@@ -5,7 +5,7 @@ import sys
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
 
-from src.Model.BuildParams import BuildParams
+from Model.BuildParams import BuildParams
 
 class DependencyResolver:
 

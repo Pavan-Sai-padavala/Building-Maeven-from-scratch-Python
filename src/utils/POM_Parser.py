@@ -1,7 +1,7 @@
 import xml.etree.ElementTree as ET
 import os
 
-from ..Model import BuildParams
+from Model.BuildParams import BuildParams
 
 namespace = {'pom': 'http://maven.apache.org/POM/4.0.0'}
 
